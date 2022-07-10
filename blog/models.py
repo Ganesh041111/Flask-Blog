@@ -10,6 +10,9 @@ Flask-login requires a User model with the following properties:
     has a get_id() method which, given a User instance, returns the unique ID for that object
 UserMixin class provides the implementation of this properties. Its the reason you can call for example is_authenticated to check if login credentials provide is correct or not instead of having to write a method to do that yourself.
 '''
+@login_manager.user_loader         #naming convension
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class User(db.Model, UserMixin):
     id=db.Column(db.Integer, primary_key=True)
